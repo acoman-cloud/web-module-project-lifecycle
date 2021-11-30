@@ -8,7 +8,8 @@ class Follower extends React.Component {
   render() {
 		const { follower } = this.props;
     return(<div>
-      Follower
+      <img src={follower.avatar_url} />
+			<p>{follower.login}</p>
     </div>);
   }
 }

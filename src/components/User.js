@@ -6,11 +6,11 @@ class User extends React.Component {
   }
 
   render() {
-		const { user } = this.props;
+		const { user, handleClick, handleChange, currentUser } = this.props;
     return(<div>
       <form>
-				<input placeholder='username' />
-				<button>Find User</button>
+				<input onChange={handleChange} value={currentUser} placeholder='username' />
+				<button onClick={handleClick}>Find User</button>
 			</form>
 			<div className='userName'>
 				<img src={user.avatar_url} />

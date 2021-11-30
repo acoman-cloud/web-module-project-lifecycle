@@ -34,11 +34,45 @@ class App extends React.Component {
       })
   }
 
+  handleClick=(e)=>{
+    e.preventDefault();
+    axios.get(`https://api.github.com/users/${this.state.currentUser}`)
+      .then(esp=>{
+                console.log(esp)
+        this.setState({
+          ...this.state,
+          user: esp.data,
+        })
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+      axios.get(`https://api.github.com/users/${this.state.currentUser}/followers`)
+      .then(esp=>{
+        this.setState({
+          ...this.state,
+          followers: esp.data,
+          currentUser: '',
+        })
+      })
+      .catch(err=>{
+        console.error(err);
+      })
+  }
+
+  handleChange = (e) =>[
+    this.setState({
+      ...this.state,
+      currentUser: e.target.value,
+    })
+  ]
+
   render() {
 
     return(<div>
     <h1>Github Info</h1>
-      <User user={this.state.user} />
+      <User user={this.state.user} handleClick={this.handleClick} handleChange={this.handleChange} currentUser={this.state.currentUser} />
+      <h2>Followers: </h2>
       <FollowerList followers={this.state.followers}/>
     </div>);
   }
